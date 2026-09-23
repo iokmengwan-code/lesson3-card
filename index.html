@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高質感個人名片卡片</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 第一行：全域 Box Model 規則，確保 Padding 與 Border 不會增加元素的總寬高 */
+        * { box-sizing: border-box; }
+
+        body {
+            /* Content/Typography: 設定背景顏色與預設字體 */
+            background-color: #f0f2f5;
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            
+            /* Margin & Padding: 消除瀏覽器預設外距，並增加頁面內距 */
+            margin: 0;
+            padding: 20px;
+            
+            /* Display & Alignment: 確保整體頁面內容置中 */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333333;
+        }
+
+        .card {
+            /* Content/Dimensions: 依需求固定寬度為 360px */
+            width: 360px;
+            
+            /* Margin: 上下 40px 外距，左右 auto 達到水平置中 */
+            margin: 40px auto;
+            
+            /* Border & Aesthetics: 圓角與細緻多層次陰影，打造高質感懸浮視覺 */
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 
+                        0 1px 3px rgba(0, 0, 0, 0.05);
+            
+            /* Layout: 隱藏溢出內容以配合卡片頂部圓角 */
+            overflow: hidden;
+            position: relative;
+            
+            /* Hover/Transition: 平滑轉場效果 */
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        box-shadow 0.3s ease;
+        }
+
+        /* Hover Effect: 微懸浮動畫與陰影加深 */
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12), 
+                        0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .banner {
+            /* Dimensions: 橫幅高度設定 */
+            height: 130px;
+            
+            /* Content/Background: 使用精緻漸層色彩作為背景 */
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            position: relative;
+        }
+
+        .card-header {
+            /* Position & Layout: 使用相對定位與彈性盒（Flexbox）佈局 */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            /* Padding: 設定頂部與左右內距，讓頭像向上突出生效 */
+            padding: 0 24px 20px 24px;
+        }
+
+        .avatar {
+            /* Dimensions: 個人頭像尺寸 */
+            width: 96px;
+            height: 96px;
+            
+            /* Border: 圓形裁切與寬邊白色實線框，創造重疊切割感 */
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            
+            /* Margin: 負 Margin 向上推，讓頭像重疊於 banner 與卡片內容交界處 */
+            margin-top: -48px;
+            /* Margin: 底部留白，間隔姓名 */
+            margin-bottom: 12px;
+            
+            /* Content/Image: 保持圖片不變形比例裁切 */
+            object-fit: cover;
+            
+            /* Aesthetics: 給予頭像獨立的柔和陰影 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background-color: #ffffff;
+            
+            /* Transition: 頭像微互動動畫 */
+            transition: transform 0.3s ease;
+        }
+
+        /* Hover Effect: 當游移到頭像時微幅放大 */
+        .avatar:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .name {
+            /* Content/Typography: 姓名文字層次設定 */
+            font-size: 1.25rem; /* 20px */
+            font-weight: 700;
+            color: #1e293b;
+            
+            /* Margin: 清楚重置標題預設 Margin，並設定適當下邊距 */
+            margin: 0 0 6px 0;
+            text-align: center;
+        }
+
+        .badge {
+            /* Content/Typography: 職稱標籤文字大小與顏色 */
+            font-size: 0.75rem; /* 12px */
+            font-weight: 500;
+            color: #4f46e5;
+            background-color: #eef2ff;
+            
+            /* Padding: 膠囊狀標籤的上下與左右留白 */
+            padding: 4px 12px;
+            
+            /* Border: 膠囊狀圓角與細微邊框 */
+            border-radius: 20px;
+            border: 1px solid rgba(79, 70, 229, 0.15);
+            
+            /* Margin: 與下方簡介保持間距 */
+            margin-bottom: 14px;
+            display: inline-block;
+        }
+
+        .bio {
+            /* Content/Typography: 簡介內文行高與顏色 */
+            font-size: 0.875rem; /* 14px */
+            line-height: 1.5;
+            color: #64748b;
+            text-align: center;
+            
+            /* Margin: 消除預設上下邊距 */
+            margin: 0;
+            
+            /* Padding: 左右適度留白，提升閱讀舒適度 */
+            padding: 0 8px;
+        }
+
+        .stats {
+            /* Layout: 網格佈局實現精確的三欄等寬結構 */
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            
+            /* Padding: 區塊內距 */
+            padding: 16px 0;
+            
+            /* Margin: 上下維持極簡距離 */
+            margin: 0 20px;
+            
+            /* Border: 使用上下邊框作為視覺分隔線 */
+            border-top: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .stat-item {
+            /* Layout: 數據項目的垂直排列 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            /* Padding: 設定間隔空間 */
+            padding: 4px 0;
+            
+            /* Position: 用於偽元素線條定位 */
+            position: relative;
+        }
+
+        /* Border (Separator): 為中間欄位添加細微的垂直分隔線 */
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background-color: #cbd5e1;
+            opacity: 0.5;
+        }
+
+        .stat-value {
+            /* Content/Typography: 數據數字放大加粗 */
+            font-size: 1.125rem; /* 18px */
+            font-weight: 700;
+            color: #0f172a;
+            
+            /* Margin: 數值與標籤之間的距離 */
+            margin-bottom: 2px;
+        }
+
+        .stat-label {
+            /* Content/Typography: 數據標籤字體設定 */
+            font-size: 0.75rem; /* 12px */
+            color: #94a3b8;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .action-buttons {
+            /* Layout: Flex 佈局讓兩個按鈕併排並拉開距離 */
+            display: flex;
+            gap: 12px;
+            
+            /* Padding: 底部操作區塊的內聚空間 */
+            padding: 20px 24px 24px 24px;
+        }
+
+        .btn {
+            /* Layout & Content: 按鈕彈性佔滿等寬，文字置中 */
+            flex: 1;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            
+            /* Typography: 按鈕文字大小與字重 */
+            font-size: 0.875rem; /* 14px */
+            font-weight: 600;
+            text-decoration: none;
+            
+            /* Padding: 按鈕內部上下左右的點擊區塊留白 */
+            padding: 10px 16px;
+            
+            /* Border: 現代感圓角 */
+            border-radius: 10px;
+            cursor: pointer;
+            
+            /* Hover/Transition: 按鈕互動動畫轉場 */
+            transition: all 0.2s ease-in-out;
+            outline: none;
+        }
+
+        /* Primary Button (Follow) - 主色按鈕 */
+        .btn-primary {
+            /* Content/Background: 漸層主色 */
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            color: #ffffff;
+            
+            /* Border: 無邊框，以陰影代替 */
+            border: none;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
+        }
+
+        /* Hover Effect: 主按鈕懸浮時提升亮度和陰影 */
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+            box-shadow: 0 6px 14px rgba(79, 70, 229, 0.35);
+            transform: translateY(-1px);
+        }
+
+        /* Active Effect: 點擊按壓微縮效果 */
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(79, 70, 229, 0.2);
+        }
+
+        /* Secondary Button (Message) - 次要按鈕 */
+        .btn-secondary {
+            /* Content/Background: 純白背景 */
+            background-color: #ffffff;
+            color: #334155;
+            
+            /* Border: 簡潔淺灰邊框 */
+            border: 1.5px solid #e2e8f0;
+        }
+
+        /* Hover Effect: 次要按鈕懸浮背景轉淺灰 */
+        .btn-secondary:hover {
+            background-color: #f8fafc;
+            border-color: #cbd5e1;
+            color: #0f172a;
+            transform: translateY(-1px);
+        }
+
+        /* Active Effect: 次要按鈕點擊微縮 */
+        .btn-secondary:active {
+            background-color: #f1f5f9;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 主要卡片容器 (Class: card) -->
+    <main class="card">
+        
+        <!-- 頂部背景橫幅 (Class: banner) -->
+        <div class="banner"></div>
+
+        <!-- 卡片頭部與主要資訊區 -->
+        <div class="card-header">
+            <!-- 圓形個人頭像 (Class: avatar) -->
+            <img class="avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="Alex Morgan 的個人頭像" onerror="this.src='https://placehold.co/150x150/e2e8f0/475569?text=User'">
+            
+            <!-- 姓名 (h2) -->
+            <h2 class="name">艾莉絲 (Alex Morgan)</h2>
+            
+            <!-- 職稱標籤 (span class="badge") -->
+            <span class="badge"> Senior UI/UX Designer</span>
+            
+            <!-- 簡短自我介紹 (p) -->
+            <p class="bio">專注於打造直覺且極致視覺體驗的前端介面，熱愛極簡主義設計與互動動畫互動。</p>
+        </div>
+
+        <!-- 三欄式數據統計區塊 (Class: stats) -->
+        <section class="stats">
+            <div class="stat-item">
+                <span class="stat-value">128</span>
+                <span class="stat-label">Posts</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">14.2k</span>
+                <span class="stat-label">Followers</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">36</span>
+                <span class="stat-label">Projects</span>
+            </div>
+        </section>
+
+        <!-- 按鈕區塊 (Class: action-buttons) -->
+        <div class="action-buttons">
+            <button class="btn btn-primary" type="button">關注 (Follow)</button>
+            <button class="btn btn-secondary" type="button">發送訊息 (Message)</button>
+        </div>
+
+    </main>
+    <!-- HTML 名片結構結束 -->
+
+</body>
+</html>
+</body>
+</html>
